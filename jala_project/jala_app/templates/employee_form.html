@@ -18,7 +18,17 @@
     </div>
 
     <div class="row mb-3">
-      <div class="col-md-4">{{ form.mobile_number.label_tag }} {{ form.mobile_number }}</div>
+      <div class="col-md-4">
+  {{ form.mobile_number.label_tag }} {{ form.mobile_number }}
+  {% if form.mobile_number.errors %}
+    <div class="text-danger">
+      {% for error in form.mobile_number.errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
       <div class="col-md-4">{{ form.dob.label_tag }} {{ form.dob }}</div>
       <div class="col-md-4">
         <label class="form-label">Gender</label>
@@ -46,24 +56,70 @@
       <div class="col-md-4">
         <label class="form-label" for="cityDropdown">City</label>
         <select id="cityDropdown" class="form-select" name="city_dropdown_val">
-          <option value="">Select City</option>
-          <optgroup label="India" class="d-none india">
-            <option value="Chennai">Chennai</option>
-            <option value="Mumbai">Mumbai</option>
-            <option value="Delhi">Delhi</option>
-            <option value="Bangalore">Bangalore</option>
-          </optgroup>
-          <optgroup label="USA" class="d-none usa">
-            <option value="New York">New York</option>
-            <option value="Chicago">Chicago</option>
-            <option value="Los Angeles">Los Angeles</option>
-          </optgroup>
-          <optgroup label="UK" class="d-none uk">
-            <option value="London">London</option>
-            <option value="Manchester">Manchester</option>
-            <option value="Liverpool">Liverpool</option>
-          </optgroup>
-        </select>
+        <option value="">Select City</option>
+
+        <optgroup label="Bangladesh" class="d-none bangladesh">
+          <option value="Dhaka">Dhaka</option>
+          <option value="Chittagong">Chittagong</option>
+          <option value="Khulna">Khulna</option>
+        </optgroup>
+
+        <optgroup label="Canada" class="d-none canada">
+          <option value="Toronto">Toronto</option>
+          <option value="Vancouver">Vancouver</option>
+          <option value="Montreal">Montreal</option>
+        </optgroup>
+
+        <optgroup label="China" class="d-none china">
+          <option value="Beijing">Beijing</option>
+          <option value="Shanghai">Shanghai</option>
+          <option value="Guangzhou">Guangzhou</option>
+        </optgroup>
+
+        <optgroup label="France" class="d-none france">
+          <option value="Paris">Paris</option>
+          <option value="Lyon">Lyon</option>
+          <option value="Marseille">Marseille</option>
+        </optgroup>
+
+        <optgroup label="India" class="d-none india">
+          <option value="Chennai">Chennai</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Bangalore">Bangalore</option>
+        </optgroup>
+
+        <optgroup label="Japan" class="d-none japan">
+          <option value="Tokyo">Tokyo</option>
+          <option value="Osaka">Osaka</option>
+          <option value="Kyoto">Kyoto</option>
+        </optgroup>
+
+        <optgroup label="Nepal" class="d-none nepal">
+          <option value="Kathmandu">Kathmandu</option>
+          <option value="Pokhara">Pokhara</option>
+          <option value="Lalitpur">Lalitpur</option>
+        </optgroup>
+
+        <optgroup label="Sri Lanka" class="d-none srilanka">
+          <option value="Colombo">Colombo</option>
+          <option value="Kandy">Kandy</option>
+          <option value="Galle">Galle</option>
+        </optgroup>
+
+        <optgroup label="UK" class="d-none uk">
+          <option value="London">London</option>
+          <option value="Manchester">Manchester</option>
+          <option value="Liverpool">Liverpool</option>
+        </optgroup>
+
+        <optgroup label="USA" class="d-none usa">
+          <option value="New York">New York</option>
+          <option value="Chicago">Chicago</option>
+          <option value="Los Angeles">Los Angeles</option>
+        </optgroup>
+      </select>
+
       </div>
       <div class="col-md-4">
         <label class="form-label" for="otherCityInput">Other City</label>
@@ -99,7 +155,7 @@
     </div>
 
     <button type="submit" class="btn btn-success">Save</button>
-    <a href="{% url 'dashboard' %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url 'employee_search' %}" class="btn btn-danger">Cancel</a>
   </form>
 </div>
 {% endblock %}
@@ -113,35 +169,45 @@
   const initialCityValue = "{{ form.initial.city|escapejs }}";
 
   const predefinedCities = {
-    'India': ['Chennai', 'Mumbai', 'Delhi', 'Bangalore'],
-    'USA': ['New York', 'Chicago', 'Los Angeles'],
-    'UK': ['London', 'Manchester', 'Liverpool']
-  };
+  'Bangladesh': ['Dhaka', 'Chittagong', 'Khulna'],
+  'Canada': ['Toronto', 'Vancouver', 'Montreal'],
+  'China': ['Beijing', 'Shanghai', 'Guangzhou'],
+  'France': ['Paris', 'Lyon', 'Marseille'],
+  'India': ['Chennai', 'Mumbai', 'Delhi', 'Bangalore'],
+  'Japan': ['Tokyo', 'Osaka', 'Kyoto'],
+  'Nepal': ['Kathmandu', 'Pokhara', 'Lalitpur'],
+  'Sri Lanka': ['Colombo', 'Kandy', 'Galle'],
+  'UK': ['London', 'Manchester', 'Liverpool'],
+  'USA': ['New York', 'Chicago', 'Los Angeles']
+};
+
 
   function isPredefinedCity(city, country) {
     return city && country && predefinedCities[country]?.includes(city);
   }
-
   function updateCityOptions() {
-    document.querySelectorAll("optgroup").forEach(group => group.classList.add("d-none"));
-    const country = countrySelect.value;
-    if (country === "India") document.querySelector(".india").classList.remove("d-none");
-    else if (country === "USA") document.querySelector(".usa").classList.remove("d-none");
-    else if (country === "UK") document.querySelector(".uk").classList.remove("d-none");
-    cityDropdown.value = "";
+  document.querySelectorAll("optgroup").forEach(group => group.classList.add("d-none"));
+  const country = countrySelect.value;
 
-    if (["edit", "create"].includes("{{ form_mode }}") && initialCityValue && country) {
-      if (isPredefinedCity(initialCityValue, country)) {
-        cityDropdown.value = initialCityValue;
-        otherCityCheck.checked = false;
-      } else {
-        otherCityCheck.checked = true;
-        otherCityInput.value = initialCityValue;
-      }
+  // Normalize class name
+  const normalized = country.toLowerCase().replace(/\s/g, '');
+  const group = document.querySelector(`.${normalized}`);
+  if (group) group.classList.remove("d-none");
+
+  cityDropdown.value = "";
+
+  if (["edit", "create"].includes("{{ form_mode }}") && initialCityValue && country) {
+    if (isPredefinedCity(initialCityValue, country)) {
+      cityDropdown.value = initialCityValue;
+      otherCityCheck.checked = false;
+    } else {
+      otherCityCheck.checked = true;
+      otherCityInput.value = initialCityValue;
     }
-
-    toggleOtherCity();
   }
+
+  toggleOtherCity();
+}
 
   function toggleOtherCity() {
     if (otherCityCheck.checked) {

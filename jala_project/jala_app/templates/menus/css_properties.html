@@ -1,56 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-  <h4>Css Properties</h4>
+  <h4>CSS Properties</h4>
   <hr>
 
   <ul class="nav nav-tabs mb-3" id="cssTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="links-tab" data-bs-toggle="tab" data-bs-target="#links" type="button" role="tab">Links</button>
+      <button class="nav-link active" id="links-tab" data-bs-toggle="tab" data-bs-target="#links" type="button" role="tab" aria-controls="links" aria-selected="true">Links</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="labels-tab" data-bs-toggle="tab" data-bs-target="#labels" type="button" role="tab">Labels</button>
+      <button class="nav-link" id="labels-tab" data-bs-toggle="tab" data-bs-target="#labels" type="button" role="tab" aria-controls="labels" aria-selected="false">Labels</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="buttons-tab" data-bs-toggle="tab" data-bs-target="#buttons" type="button" role="tab">Buttons</button>
+      <button class="nav-link" id="buttons-tab" data-bs-toggle="tab" data-bs-target="#buttons" type="button" role="tab" aria-controls="buttons" aria-selected="false">Buttons</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="alerts-tab" data-bs-toggle="tab" data-bs-target="#alerts" type="button" role="tab">Alerts</button>
+      <button class="nav-link" id="alerts-tab" data-bs-toggle="tab" data-bs-target="#alerts" type="button" role="tab" aria-controls="alerts" aria-selected="false">Alerts</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="progress-tab" data-bs-toggle="tab" data-bs-target="#progress" type="button" role="tab">Progress Bars</button>
+      <button class="nav-link" id="progress-tab" data-bs-toggle="tab" data-bs-target="#progress" type="button" role="tab" aria-controls="progress" aria-selected="false">Progress Bars</button>
     </li>
   </ul>
 
   <div class="tab-content p-3 border bg-light" id="cssTabContent">
-
-    <div class="tab-pane fade show active" id="links" role="tabpanel">
+    <div class="tab-pane fade show active" id="links" role="tabpanel" aria-labelledby="links-tab">
       <a href="https://www.google.com" target="_blank" class="btn btn-outline-primary me-2">Google</a>
       <a href="https://www.linkedin.com" target="_blank" class="btn btn-outline-info me-2">LinkedIn</a>
     </div>
 
-    <div class="tab-pane fade" id="labels" role="tabpanel">
+    <div class="tab-pane fade" id="labels" role="tabpanel" aria-labelledby="labels-tab">
       <span class="badge bg-primary">Primary</span>
       <span class="badge bg-success">Success</span>
       <span class="badge bg-warning text-dark">Warning</span>
       <span class="badge bg-danger">Danger</span>
     </div>
 
-    <div class="tab-pane fade" id="buttons" role="tabpanel">
+    <div class="tab-pane fade" id="buttons" role="tabpanel" aria-labelledby="buttons-tab">
       <button class="btn btn-primary me-2">Primary</button>
       <button class="btn btn-success me-2">Success</button>
       <button class="btn btn-warning me-2">Warning</button>
       <button class="btn btn-danger me-2">Danger</button>
     </div>
 
-    <div class="tab-pane fade" id="alerts" role="tabpanel">
-      <div class="alert alert-success">Success! Indicates a successful or positive action.</div>
-      <div class="alert alert-info">Info! Indicates a neutral informative change or action.</div>
-      <div class="alert alert-warning">Warning! Indicates a warning that might need attention.</div>
-      <div class="alert alert-danger">Danger! Indicates a dangerous or potentially negative action.</div>
+    <div class="tab-pane fade" id="alerts" role="tabpanel" aria-labelledby="alerts-tab">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      Success! Indicates a successful or positive action.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      Info! Indicates a neutral informative change or action.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      Warning! Indicates a warning that might need attention.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      Danger! Indicates a dangerous or potentially negative action.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     </div>
 
-    <div class="tab-pane fade" id="progress" role="tabpanel">
+
+    <div class="tab-pane fade" id="progress" role="tabpanel" aria-labelledby="progress-tab">
       <div class="progress mb-2">
         <div class="progress-bar" role="progressbar" style="width: 25%;">25%</div>
       </div>
@@ -64,7 +76,6 @@
         <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;">100%</div>
       </div>
     </div>
-
   </div>
 </div>
 {% endblock %}

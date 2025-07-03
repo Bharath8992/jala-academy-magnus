@@ -42,14 +42,21 @@ def dashboard(request):
 
 @login_required
 def employee_create(request):
+    logger.debug("Entered employee_create view")
     if request.method == 'POST':
+        logger.debug("Request method is POST")
         form = EmployeeForm(request.POST)
         if form.is_valid():
+            logger.debug("EmployeeForm is valid")
             emp = form.save(commit=False)
             emp.skills = ",".join(form.cleaned_data.get('skills', []))
             emp.save()
+            logger.info(f"Employee created: {emp.first_name} {emp.last_name}")
             return redirect('employee_search')
+        else:
+            logger.warning(f"Form errors: {form.errors}")
     else:
+        logger.debug("Request method is GET")
         form = EmployeeForm()
     return render(request, 'employee_form.html', {'form': form, 'form_mode': 'create'})
 
@@ -71,7 +78,7 @@ def employee_edit(request, pk):
 def employee_search(request):
     query_name = request.GET.get('name', '')
     query_mobile = request.GET.get('mobile', '')
-    employees = Employee.objects.all()
+    employees = Employee.objects.all().order_by('first_name')
     if query_name:
         employees = employees.filter(first_name__icontains=query_name)
         logger.debug(f"Filtered employees by name: {query_name}")
@@ -101,10 +108,18 @@ def employee_delete(request, pk):
 def load_cities(request):
     country_id = request.GET.get('country')
     city_choices = {
-        'India': [('Chennai', 'Chennai'), ('Mumbai', 'Mumbai'), ('Delhi', 'Delhi'), ('Bangalore', 'Bangalore')],
-        'USA': [('New York', 'New York'), ('Chicago', 'Chicago'), ('Los Angeles', 'Los Angeles')],
-        'UK': [('London', 'London'), ('Manchester', 'Manchester'), ('Liverpool', 'Liverpool')],
-    }
+    'Bangladesh': [('Dhaka', 'Dhaka'), ('Chittagong', 'Chittagong'), ('Khulna', 'Khulna')],
+    'Canada': [('Toronto', 'Toronto'), ('Vancouver', 'Vancouver'), ('Montreal', 'Montreal')],
+    'China': [('Beijing', 'Beijing'), ('Shanghai', 'Shanghai'), ('Guangzhou', 'Guangzhou')],
+    'France': [('Paris', 'Paris'), ('Lyon', 'Lyon'), ('Marseille', 'Marseille')],
+    'India': [('Chennai', 'Chennai'), ('Mumbai', 'Mumbai'), ('Delhi', 'Delhi'), ('Bangalore', 'Bangalore')],
+    'Japan': [('Tokyo', 'Tokyo'), ('Osaka', 'Osaka'), ('Kyoto', 'Kyoto')],
+    'Nepal': [('Kathmandu', 'Kathmandu'), ('Pokhara', 'Pokhara'), ('Lalitpur', 'Lalitpur')],
+    'Sri Lanka': [('Colombo', 'Colombo'), ('Kandy', 'Kandy'), ('Galle', 'Galle')],
+    'UK': [('London', 'London'), ('Manchester', 'Manchester'), ('Liverpool', 'Liverpool')],
+    'USA': [('New York', 'New York'), ('Chicago', 'Chicago'), ('Los Angeles', 'Los Angeles')],
+}
+
     cities = city_choices.get(country_id, [])
     data = [{'value': city[0], 'text': city[1]} for city in cities]
     return JsonResponse(data, safe=False)
