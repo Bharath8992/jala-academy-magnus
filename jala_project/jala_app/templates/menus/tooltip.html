@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h4>Tooltip</h4>
+  <hr>
+  <button id="tooltipBtn" type="button" class="btn btn-primary"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="You have not clicked this BUTTON yet. Please Click me and check the tooltip">
+    Check the Tooltip Before You Click.
+  </button>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var tooltipTrigger = document.getElementById('tooltipBtn');
+    var tooltip = new bootstrap.Tooltip(tooltipTrigger);
+
+    tooltipTrigger.addEventListener('click', function () {
+      const newTitle = 'Successfully Clicked!';
+      tooltipTrigger.setAttribute('data-bs-original-title', newTitle); 
+      tooltipTrigger.setAttribute('title', newTitle); 
+
+      tooltip.dispose();
+      tooltip = new bootstrap.Tooltip(tooltipTrigger);
+
+      tooltip.show();
+    });
+  });
+</script>
+{% endblock %}

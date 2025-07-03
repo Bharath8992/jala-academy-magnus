@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search Employee{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h4>Employee <small class="text-muted">Search</small></h4>
+  <hr>
+
+  <form class="row g-3 mb-4 align-items-end" method="get">
+    <div class="col-md-5">
+      <input type="text" name="name" value="{{ query_name }}" placeholder="Employee Name" class="form-control" />
+    </div>
+    <div class="col-md-5">
+      <input type="text" name="mobile" value="{{ query_mobile }}" placeholder="Mobile No" class="form-control" />
+    </div>
+    <div class="col-md-2 d-flex gap-2">
+      <button type="submit" class="btn btn-success w-100">Search</button>
+      <a href="{% url 'employee_search' %}" class="btn btn-danger w-100">Clear</a>
+    </div>
+  </form>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Mobile No</th>
+          <th>Email Id</th>
+          <th>Gender</th>
+          <th>Birth Date</th>
+          <th>Country</th>
+          <th>City</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for emp in employees %}
+        <tr>
+          <td>{{ emp.first_name }}</td>
+          <td>{{ emp.last_name }}</td>
+          <td>{{ emp.mobile_number }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.gender }}</td>
+          <td>{{ emp.dob|date:"d/m/Y" }}</td>
+          <td>{{ emp.country }}</td>
+          <td>{{ emp.city }}</td>
+          <td>
+            <a href="{% url 'employee_edit' emp.pk %}" class="btn btn-sm btn-success mb-1">Edit</a>
+            <a href="{% url 'employee_delete' emp.pk %}" class="btn btn-sm btn-danger mb-1">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="9">No records found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if page_obj.has_other_pages %}
+  <nav aria-label="Employee pagination">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}&name={{ query_name }}&mobile={{ query_mobile }}">&laquo;</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ num }}&name={{ query_name }}&mobile={{ query_mobile }}">{{ num }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}&name={{ query_name }}&mobile={{ query_mobile }}">&raquo;</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

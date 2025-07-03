@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Menu{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h4>Menu</h4>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#single">Single Menus</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#sub">Sub Menus</a>
+    </li>
+  </ul>
+
+  <div class="tab-content p-3 border border-top-0">
+    <div class="tab-pane fade show active" id="single">
+      <div class="d-flex flex-column" style="width: 200px;">
+        <button class="btn btn-primary mb-1" onclick="showSelection('Testing')">Testing</button>
+        <button class="btn btn-primary mb-1" onclick="showSelection('Java')">JAVA</button>
+        <button class="btn btn-primary mb-1" onclick="showSelection('.Net')">.Net</button>
+        <button class="btn btn-primary mb-1" onclick="showSelection('Database')">Database</button>
+      </div>
+      <p class="mt-3" id="selection-result">You Have Selected <strong>Oracle</strong> Menu Option.</p>
+    </div>
+<div class="tab-pane fade" id="sub">
+  <div class="d-flex">
+   
+    <div class="d-flex flex-column" style="width: 200px;">
+      <button class="btn btn-info mb-1" onclick="showSubItems('Testing')">Testing</button>
+      <button class="btn btn-info mb-1" onclick="showSubItems('JAVA')">JAVA</button>
+      <button class="btn btn-info mb-1" onclick="showSubItems('.Net')">.Net</button>
+      <button class="btn btn-info mb-1" onclick="showSubItems('database')">Database</button>
+    </div>
+
+    <div class="ms-4 d-flex flex-column" id="second-level-menu" style="width: 200px;">
+    
+    </div>
+
+    <div class="ms-4 mt-2" id="submenu-result">
+      Select a submenu item to see the result.
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<script>
+  function showSelection(option) {
+    document.getElementById('selection-result').innerHTML = `You Have Selected <strong>${option}</strong> Menu Option.`;
+  }
+
+  function showSubMenu(subOption) {
+    document.getElementById('submenu-result').innerHTML = `You Have Selected <strong>${subOption}</strong> Menu Option.`;
+  }
+</script>
+
+<script>
+  const subMenuItems = {
+    Testing: ['Selenium', 'Manual Testing', 'DB Testing', 'Unit Testing'],
+    JAVA: ['Adv Java', 'Core Java', 'Spring', 'Hibernate'],
+    ".Net": ['C#', 'ASP.NET', 'ADO.NET', 'MVC'],
+    database: ['SQL', 'MySQL', 'Oracle', 'H2']
+  };
+
+  function showSubItems(mainMenu) {
+    const secondMenu = document.getElementById('second-level-menu');
+    secondMenu.innerHTML = '';
+
+    if (subMenuItems[mainMenu]) {
+      subMenuItems[mainMenu].forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-secondary mb-1';
+        btn.innerText = item;
+        btn.onclick = () => {
+          document.getElementById('submenu-result').innerHTML = `You have chosen <strong>${item}</strong>.`;
+        };
+        secondMenu.appendChild(btn);
+      });
+    }
+  }
+</script>
+
+{% endblock %}

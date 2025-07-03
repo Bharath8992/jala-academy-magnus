@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Magnus - JALA Academy{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        #wrapper {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .sidebar {
+            background-color: #212529;
+            color: white;
+            flex-shrink: 0;
+            width: 250px;
+            padding-top: 1rem;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+        }
+        .sidebar a:hover {
+            background-color: #343a40;
+        }
+        .btn-link {
+            color: white;
+            padding-left: 12px;
+            text-decoration: none;
+            text-align: left;
+        }
+        .btn-link:hover {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        .btn-link[aria-expanded="true"] .rotate-icon {
+            transform: rotate(180deg);
+        }
+        .btn-link[aria-expanded="false"] .rotate-icon {
+            transform: rotate(0deg);
+        }
+        .rotate-icon {
+            float: right;
+            transition: transform 0.3s ease;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-full {
+            background-color: #0d6efd;
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            margin: 0;
+            flex-shrink: 0;
+        }
+        .content-area {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        @media (min-width: 768px) {
+            #wrapper {
+                flex-direction: row;
+            }
+            .sidebar {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+            }
+        }
+        .navbar-brand {
+            padding-left: 1rem;
+        }
+        .navbar-nav {
+            padding-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-md-none">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Magnus</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileSidebarCollapse" aria-controls="mobileSidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mobileSidebarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}"><i class="bi bi-house"></i> Home</a></li>
+                <li class="nav-item">
+                    <button class="btn btn-link nav-link text-start w-100" data-bs-toggle="collapse" data-bs-target="#mobileEmployeeMenu" aria-expanded="false">
+                        <i class="bi bi-people"></i> Employee <i class="bi bi-chevron-down rotate-icon"></i>
+                    </button>
+                    <div class="collapse ps-3" id="mobileEmployeeMenu">
+                        <a class="nav-link" href="{% url 'employee_create' %}">Create</a>
+                        <a class="nav-link" href="{% url 'employee_search' %}">Search</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-link nav-link text-start w-100" data-bs-toggle="collapse" data-bs-target="#mobileMoreMenu" aria-expanded="false">
+                        <i class="bi bi-grid"></i> More <i class="bi bi-chevron-down rotate-icon"></i>
+                    </button>
+                    <div class="collapse ps-3" id="mobileMoreMenu">
+                        <a class="nav-link" href="{% url 'multiple_tabs' %}">Multiple Tabs</a>
+                        <a class="nav-link" href="{% url 'menu' %}">Menu</a>
+                        <a class="nav-link" href="{% url 'tags' %}">Autocomplete</a>
+                        <a class="nav-link" href="{% url 'collapsible' %}">Collapsible Content</a>
+                        <a class="nav-link" href="{% url 'multi_features' %}">Images</a>
+                        <a class="nav-link" href="{% url 'slider' %}">Slider</a>
+                        <a class="nav-link" href="{% url 'tooltip' %}">Tooltips</a>
+                        <a class="nav-link" href="{% url 'popup' %}">Popups</a>
+                        <a class="nav-link" href="{% url 'link' %}">Links</a>
+                        <a class="nav-link" href="{% url 'css_properties' %}">CSS Properties</a>
+                        <a class="nav-link" href="{% url 'iframe_display' %}">iFrames</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="wrapper">
+    <div class="sidebar d-none d-md-block">
+        <div class="text-center mb-4">
+            <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="user" width="50">
+            <h6 class="mt-2">Guest User</h6>
+            <span>User</span>
+        </div>
+
+        <a href="{% url 'dashboard' %}"><i class="bi bi-house"></i> Home</a>
+
+        <button class="btn btn-link text-white text-start w-100" data-bs-toggle="collapse" data-bs-target="#employeeMenu" aria-expanded="{% if '/employee' in request.path %}true{% else %}false{% endif %}">
+    <i class="bi bi-people"></i> Employee <i class="bi bi-chevron-down rotate-icon"></i>
+</button>
+<div class="collapse ps-3 {% if '/employee' in request.path %}show{% endif %}" id="employeeMenu">
+    <a href="{% url 'employee_create' %}">Create</a>
+    <a href="{% url 'employee_search' %}">Search</a>
+</div>
+
+
+        <button class="btn btn-link text-white text-start w-100" data-bs-toggle="collapse" data-bs-target="#moreMenu" aria-expanded="{% if 'tags' in request.path or 'slider' in request.path or 'tooltip' in request.path or 'menu' in request.path or 'popup' in request.path or 'iframe' in request.path or 'css' in request.path %}true{% else %}false{% endif %}">
+            <i class="bi bi-grid"></i> More <i class="bi bi-chevron-down rotate-icon"></i>
+        </button>
+        <div class="collapse ps-3 {% if 'tags' in request.path or 'slider' in request.path or 'tooltip' in request.path or 'menu' in request.path or 'popup' in request.path or 'iframe' in request.path or 'css' in request.path %}show{% endif %}" id="moreMenu">
+            <a href="{% url 'multiple_tabs' %}">Multiple Tabs</a>
+            <a href="{% url 'menu' %}">Menu</a>
+            <a href="{% url 'tags' %}">Autocomplete</a>
+            <a href="{% url 'collapsible' %}">Collapsible Content</a>
+            <a href="{% url 'multi_features' %}">Images</a>
+            <a href="{% url 'slider' %}">Slider</a>
+            <a href="{% url 'tooltip' %}">Tooltips</a>
+            <a href="{% url 'popup' %}">Popups</a>
+            <a href="{% url 'link' %}">Links</a>
+            <a href="{% url 'css_properties' %}">CSS Properties</a>
+            <a href="{% url 'iframe_display' %}">iFrames</a>
+        </div>
+
+        <a href="#"><i class="bi bi-gear"></i> Settings</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-full d-flex justify-content-between align-items-center">
+            <h4>Magnus</h4>
+            <a href="{% url 'logout' %}" class="btn btn-light btn-sm">Logout</a>
+        </div>
+
+        <div class="content-area">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

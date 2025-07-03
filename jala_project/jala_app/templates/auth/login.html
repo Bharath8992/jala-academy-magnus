@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login | JALA Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .responsive-message span {
+            background-color: rgb(228, 252, 10);
+            color: #b7791f;
+            padding: 0.4rem 0.75rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+        }
+
+        .input-group-custom {
+            position: relative;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+            overflow: hidden;
+        }
+
+        .input-group-custom .form-control {
+            border: none;
+            padding-right: 3rem;
+            box-shadow: none;
+        }
+
+        .input-group-custom .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            outline: 0;
+        }
+
+        .input-group-custom .input-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            color: #6c757d;
+            background-color: #e9ecef;
+            border-left: 1px solid #ced4da;
+            border-top-right-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+        }
+
+        .login-container {
+            max-width: 100%;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-sign-in-flex {
+            min-width: 100px;
+        }
+
+        .footer-section {
+            background-color: #1a237e;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.75rem;
+            margin-top: auto;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-vh-100 d-flex flex-column justify-content-between py-4">
+
+<div class="container text-center">
+    <h1 class="h2 fw-bold text-dark mb-2">JALA Academy</h1>
+    <p class="text-secondary mb-3 small">Use the below details to login</p>
+    <p class="text-secondary mb-1 small">Email: <span class="fw-semibold">training@jalaacademy.com</span></p>
+    <p class="text-secondary mb-3 small">Password: <span class="fw-semibold">jobprogram</span></p>
+    <p class="responsive-message">
+        <span>Learn everything on Real-Time Scenarios. FREE for all.</span>
+    </p>
+</div>
+
+<div class="container mt-3 p-4 bg-white rounded shadow login-container">
+    <h4 class="h5 fw-semibold text-center text-secondary mb-4">Sign In</h4>
+    {% if error %}
+    <div class="alert alert-danger text-center" role="alert">{{ error }}</div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_email" class="form-label visually-hidden">Email address</label>
+            <div class="input-group-custom">
+                <input type="email" name="email" class="form-control" id="id_email" placeholder="training@jalaacademy.com" required>
+                <span class="input-icon"><i class="fas fa-envelope"></i></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="id_password" class="form-label visually-hidden">Password</label>
+            <div class="input-group-custom">
+                <input type="password" name="password" class="form-control" id="id_password" placeholder="Password" required>
+                <span class="input-icon"><i class="fas fa-lock"></i></span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me">
+                <label class="form-check-label small text-dark" for="remember_me">Remember Me</label>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary btn-sign-in-flex">Sign In</button>
+            </div>
+        </div>
+        <div class="text-center text-muted small my-3">- OR -</div>
+        <div class="d-grid gap-3">
+            <button type="button" class="btn btn-outline-primary shadow-sm">Admin Login</button>
+        </div>
+    </form>
+</div>
+
+<div class="w-100 footer-section">
+    JALA ACADEMY offers Job Guaranteed Programs for Freshers to 12 years' experience on Full Stack Development / Automation Testing / Dev-Ops / QA / SDET / Cyber Security / RPA / Cloud Technologies. Training would be completely on live Project scenarios. Read more on our website: 
+    <a href="https://jalaacademy.com/" class="text-white text-decoration-underline">https://jalaacademy.com/</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

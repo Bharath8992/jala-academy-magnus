@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <h4>Uploading/Downloading Image</h4>
+  <hr>
+  <form method="POST" enctype="multipart/form-data" class="row g-3">
+    {% csrf_token %}
+    <div class="col-md-6">
+      <label>Select File:</label>
+      <input type="file" name="image" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label>File Name:</label>
+      <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <button type="submit" class="btn btn-success">Upload</button>
+    </div>
+  </form>
+
+  <hr>
+  <h5>List Of Images:</h5>
+  <div class="row mt-3">
+    {% for img in image_list %}
+      <div class="col-md-3 mb-4">
+        <div class="border p-2">
+          <strong>{{ img.name }}</strong>
+          <img src="{{ img.url }}" class="img-fluid mt-2" alt="{{ img.name }}">
+        </div>
+      </div>
+    {% empty %}
+      <p>No images uploaded.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

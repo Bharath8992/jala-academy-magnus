@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block title %}Collapsible Content{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h4>Collapsible Content</h4>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#single">Single Collapse</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#multiple">Multiple Collapse</a>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-3">
+
+    <div class="tab-pane fade show active" id="single">
+      <div class="accordion" id="singleAccordion">
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="singleHeadingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#singleCollapseOne" aria-expanded="true">
+              Know your goals and Prioritize Wisely
+            </button>
+          </h2>
+          <div id="singleCollapseOne" class="accordion-collapse collapse show" data-bs-parent="#singleAccordion">
+            <div class="accordion-body">
+              <div class ="mb-3">What are your priorities for the day? Make a list of your priorities and plan your day. The tasks of the day must be outlined with the most important and urgent ones on top.</div>
+              Likewise, determine your short-term and long-term goals and evaluate your progress frequently.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="singleHeadingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#singleCollapseTwo" aria-expanded="false">
+              Be focused and Eliminate Distractions
+            </button>
+          </h2>
+          <div id="singleCollapseTwo" class="accordion-collapse collapse" data-bs-parent="#singleAccordion">
+            <div class="accordion-body">
+              Are you really present physically and mentally. Try to block out all distractions so that you have
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="singleHeadingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#singleCollapseThree" aria-expanded="false">
+              Choose the right mentor to Succeed in career
+            </button>
+          </h2>
+          <div id="singleCollapseThree" class="accordion-collapse collapse" data-bs-parent="#singleAccordion">
+            <div class="accordion-body">
+             <div class="mb-2"> There is a big difference between a mentor and a coach</div>
+              <div class= "mb-2">Mentoring is a long-term process based on mutual trust and respect. Coaching, on the other hand, is for a short period of time.</div>
+              The topmost priority of a mentor is to help develop skills that are not just relevant for the mentees in their present job, but also for the future. A mentor has the first-hand experience in the industry
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="multiple">
+      <div class="accordion" id="multiAccordion">
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="multiHeadingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseOne">
+              Collaborate with Colleagues
+            </button>
+          </h2>
+          <div id="multiCollapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              <div class="mb-2">Teach and learn from each other</div>
+              <div class="mb-2">Collaborate on lesson plans - Two minds are better than one.</div>
+              <div class="mb-2">Build your own social network</div>
+              <div class="mb-2">Get feedback regularly</div>
+              <div class="mb-2">Work together to solve problems</div>
+              <div class="mb-2">Become a teacher-leader</div>
+              <div class="mb-2">Adopt a team mentality</div>
+              <div class="mb-2">Ask for help</div>
+              <div class="mb-2">Find a mentor</div>
+              <div class="mb-2">Be open to new ideas</div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="multiHeadingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseTwo">
+              Learn Anything Quickly
+            </button>
+          </h2>
+          <div id="multiCollapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              <div class="mb-2">Learn by doing. Always play with the code while learning.</div>
+              <div class="mb-2">Ask for help. You’ll need it.</div>
+              <div class="mb-2">TEACH SOMEONE ELSE</div>
+              <div class="mb-2">FOCUS ON THE 20%</div>
+              <div class="mb-2">Identifying the problem that needs solving</div>
+              <div class="mb-2">Seek out more online resources. There’s a wealth of content</div>
+              <div class="mb-2">Don’t just read the sample code. Tinker with it!</div>
+              <div class="mb-2">Take breaks when debugging</div>
+              <div class="mb-2">Keep Calm and Keep On Coding</div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="multiHeadingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseThree">
+              Reasons People Give Up on Their Goals Too Early
+            </button>
+          </h2>
+          <div id="multiCollapseThree" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              <div class="mb-2">They want the outcome more than they want to obtain a skill</div>
+            <div class="mb-2">They do not have the discipline to stick with their idea long enough to see it live</div>
+            <div class="mb-2">They get distracted by what someone else is doing</div>
+            <div class="mb-2">They don't believe in themselves enough.</div>
+            <div class="mb-2">They fail once--and never try again</div>
+            <div class="mb-2">They don't learn how to discipline themselves</div>
+            <div class="mb-2">They care more about the end result, not the process</div>
+            <div class="mb-2">They surround themselves with people who are a negative influence.</div>
+            <div class="mb-2">They would rather settle for short-term rewards</div>
+            <div class="mb-2">They don't have a guaranteed path to achieve success</div>
+            <div class="mb-2">They don’t have the discipline to work hard enough</div>
+            <div class="mb-2">They become distracted by other aspects of their life</div>
+            <div class="mb-2">They don't know that failure is normal</div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="multiHeadingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseOne">
+              Signs of Settling For Less In Life
+            </button>
+          </h2>
+          <div id="multiCollapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              <div class="mb-2">You are always tired</div>
+              <div class="mb-2">You keep saying "after"</div>
+              <div class="mb-2">You don’t think you can</div>
+              <div class="mb-2">You think a lot, but do little</div>
+              <div class="mb-2">You are playing small and you think it’s OK</div>
+              <div class="mb-2">WhatsApp, Facebook, and TV are the highlight of your day</div>
+              <div class="mb-2">You are not ready to break comfort</div>
+              <div class="mb-2">You rely on escapism</div>
+              <div class="mb-2">You have the exact same friends</div>
+              <div class="mb-2">You have no idea what you want</div>
+              <div class="mb-2">You don't think you deserve better</div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

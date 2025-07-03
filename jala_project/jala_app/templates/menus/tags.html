@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tags Demo{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    
+    <div class="mt-5">
+        <h4>Autocomplete</h4>
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#single">Single Values</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#multiple">Multiple Values</a>
+            </li>
+        </ul>
+
+        <div class="tab-content border border-top-0 p-3">
+            <div class="tab-pane fade show active" id="single">
+                <div class="mb-3">
+                    <label class="form-label">Tags :</label>
+                    <input type="text" class="form-control" placeholder="Type a tag...">
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="multiple">
+                <div class="mb-3">
+                    <label class="form-label">Tags :</label>
+                    <input type="text" class="form-control" placeholder="Type multiple tags, separated by comma...">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
