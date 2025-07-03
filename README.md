@@ -16,7 +16,7 @@
 
 ## 🖼️ Screenshots
 
-> _Place your images in a `screenshots/` folder and update the paths if needed._
+
 
 **🔵 Employee Create**  
 ![Employee-Create](screenshots/employee-create.png)
